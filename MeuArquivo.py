@@ -16,6 +16,8 @@ print(faturamento)
 
 
 # quantidade de produtos vendidos por loja
+quantidade = tabela_vendas[['ID Loja', 'Quantidade']].groupby('ID Loja').sum()# Mesma coisa que a coluna de valor, esta mostra a quantidade
+print(quantidade)
 
 #ticket médio por produto em cada loja
 
