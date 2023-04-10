@@ -20,6 +20,9 @@ quantidade = tabela_vendas[['ID Loja', 'Quantidade']].groupby('ID Loja').sum()# 
 print(quantidade)
 
 #ticket médio por produto em cada loja
+ticket_medio = (faturamento['Valor Final'] / quantidade ['Quantidade']).to_frame() #Fazendo a divisão, um colchete para um filtro, o to.Fram transforma em uma tabela
+print(ticket_medio)
+
 
 #enviar um e-mail com o relatório
 
