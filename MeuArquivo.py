@@ -1,4 +1,5 @@
 import pandas as pd # o as é um alias para o nome pandas, a mesma biblioteca tem uma interação com o Excel
+import win32com.client as win32 # importando a bliblioteca de interação
 
 #importar a base de dados
 tabela_vendas = pd.read_excel('Vendas.xlsx')
@@ -19,10 +20,38 @@ print(faturamento)
 quantidade = tabela_vendas[['ID Loja', 'Quantidade']].groupby('ID Loja').sum()# Mesma coisa que a coluna de valor, esta mostra a quantidade
 print(quantidade)
 
+print('-' * 50)
+
 #ticket médio por produto em cada loja
 ticket_medio = (faturamento['Valor Final'] / quantidade ['Quantidade']).to_frame() #Fazendo a divisão, um colchete para um filtro, o to.Fram transforma em uma tabela
 print(ticket_medio)
 
 
 #enviar um e-mail com o relatório
+outlook = win32.Dispatch('outlook.application') # faz uma conexão com o outlook
+#Abrindo o outlook no windows e criando o e-mail para enviar
+mail = outlook.CreateItem(0) 
+mail.To = "tsttst@outlook.com" # E-mail a ser encaminhado/enviado
+mail.Subject = "Relatorios de venda por Loja" # Assunto do E-mail
+mail.HTMLBody = '''
+Prezados,
 
+segue o Relatorio de Vendas por cada loja
+
+Faturamento :
+{}
+
+Quantidade Vendida : 
+{}
+
+Ticket médio por Produtos em cada loja : 
+
+{}
+
+Qualquer dpuvida estou a disposição,
+
+Néfi Trindade
+
+''' # Corpo do E-mail
+
+mail.Send() # enviando o e-mail
