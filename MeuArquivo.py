@@ -33,24 +33,23 @@ outlook = win32.Dispatch('outlook.application') # faz uma conexão com o outlook
 mail = outlook.CreateItem(0) 
 mail.To = "tsttst@outlook.com" # E-mail a ser encaminhado/enviado
 mail.Subject = "Relatorios de venda por Loja" # Assunto do E-mail
-mail.HTMLBody = '''
-Prezados,
+mail.HTMLBody = f'''
+<p>Prezados,</p>
 
-segue o Relatorio de Vendas por cada loja
+<p>Segue o Relatorio de Vendas por cada loja atualizado: </p>
 
-Faturamento :
-{}
 
-Quantidade Vendida : 
-{}
+<p>Faturamento :</p>
+{faturamento.to_html()}
 
-Ticket médio por Produtos em cada loja : 
+<p>Quantidade Vendida :</p>
+{quantidade.to_html()}
 
-{}
+<p>Ticket médio por Produtos em cada loja :</p>
 
-Qualquer dpuvida estou a disposição,
+{ticket_medio.to_html()}
 
-Néfi Trindade
+<p>Qualquer dúvida estou a disposição,</p>
 
 ''' # Corpo do E-mail
 
